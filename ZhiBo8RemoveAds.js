@@ -1,6 +1,6 @@
 /*
  * ZhiBo8RemoveAds response rewriter for Loon.
- * Uses the classic Loon script API for compatibility with App Store 3.3.x.
+ * Uses the classic Loon script API and targets Loon 3.4.0 or later.
  */
 
 var url = $request.url;

@@ -1,6 +1,6 @@
 # ZhiBo8RemoveAds
 
-直播吧 iOS 去广告 Loon 插件。当前规则根据直播吧 6.9.1（2026-08-03）网络请求制作，兼容 App Store 版 Loon 3.3.x。
+直播吧 iOS 去广告 Loon 插件。当前规则根据直播吧 6.9.1（2026-08-03）网络请求制作，最低支持 Loon 3.4.0。
 
 ## 去除内容
 
@@ -14,7 +14,7 @@
 
 ## 安装
 
-需要已安装、信任 Loon 的 MitM 证书。本插件使用经典 `[URL Rewrite]` 和 `[Script]` 语法，不依赖 Loon 3.5.1 的新版 Rewrite。
+需要 Loon 3.4.0 或更高版本，并已安装、信任 Loon 的 MitM 证书。本插件使用经典 `[URL Rewrite]` 和 `[Script]` 语法，不依赖 Loon 3.5.1 的新版 Rewrite。
 
 [点击导入 Loon 插件](https://www.nsloon.com/openloon/import?plugin=https%3A%2F%2Fraw.githubusercontent.com%2Fsdualasijia%2FZhiBo8RemoveAds%2Fmain%2FZhiBo8RemoveAds.plugin)
 

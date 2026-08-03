@@ -1,7 +1,8 @@
 #!name=直播吧去广告
-#!desc=关闭开屏、信息流、赛程等广告位，并移除“我的”页面的游戏中心。兼容 App Store 版 Loon 3.3.x。
+#!desc=关闭开屏、信息流、赛程等广告位，并移除“我的”页面的游戏中心。最低支持 Loon 3.4.0。
 #!author=sdualasijia
 #!system=iOS
+#!loon_version=3.4.0(0)
 #!tag=去广告,直播吧
 
 [URL Rewrite]
