@@ -1,6 +1,6 @@
 # ZhiBo8RemoveAds
 
-直播吧 iOS 去广告 Loon 插件。当前规则根据直播吧 6.9.1（2026-08-03）网络请求制作。
+直播吧 iOS 去广告 Loon 插件。当前规则根据直播吧 6.9.1（2026-08-03）网络请求制作，兼容 App Store 版 Loon 3.3.x。
 
 ## 去除内容
 
@@ -14,7 +14,7 @@
 
 ## 安装
 
-需要 Loon 3.5.1（Build 978）或更高版本，并已安装、信任 MitM 证书。
+需要已安装、信任 Loon 的 MitM 证书。本插件使用经典 `[URL Rewrite]` 和 `[Script]` 语法，不依赖 Loon 3.5.1 的新版 Rewrite。
 
 [点击导入 Loon 插件](https://www.nsloon.com/openloon/import?plugin=https%3A%2F%2Fraw.githubusercontent.com%2Fsdualasijia%2FZhiBo8RemoveAds%2Fmain%2FZhiBo8RemoveAds.plugin)
 
@@ -30,15 +30,13 @@ https://raw.githubusercontent.com/sdualasijia/ZhiBo8RemoveAds/main/ZhiBo8RemoveA
 2. 强制结束直播吧并重新打开；
 3. 首次打开后再结束并打开一次，让改写后的配置覆盖旧广告缓存。
 
-## 广告 SDK 兜底开关
+## 广告 SDK 兜底
 
-插件默认开启“拦截广告 SDK”，用于阻止旧缓存配置在新配置下发前请求开屏广告。该规则涉及穿山甲、优量汇和 Tanx 的广告接口，可能同时影响其他 App 的同类广告。
-
-完成两次重启后，可以在插件参数中关闭该开关。直播吧自身广告配置的改写仍会继续生效。
+插件会阻止旧缓存配置在新配置下发前请求开屏广告。该规则涉及穿山甲、优量汇和 Tanx 的广告接口，也会同时拦截其他 App 使用这些相同接口请求的广告。若不希望影响其他 App，可在插件中删除 `[URL Rewrite]` 下对应的三条 SDK 规则，但第一次启动时可能仍显示缓存广告。
 
 ## 工作方式
 
-插件重写以下直播吧接口：
+插件通过 `ZhiBo8RemoveAds.js` 重写以下直播吧接口：
 
 - `a.qiumibao.com/ios/config/`：关闭广告总开关、开屏、插屏、弹窗及预加载；
 - `a.qiumibao.com/activities/config.php`：关闭服务端下发的全部广告位；
