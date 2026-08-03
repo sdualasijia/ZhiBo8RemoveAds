@@ -1,0 +1,30 @@
+#!name=直播吧去广告
+#!desc=关闭开屏、信息流、赛程等广告位，并移除“我的”页面的游戏中心。基于直播吧 iOS 6.9.1 抓包制作。
+#!author=sdualasijia
+#!system=iOS
+#!loon_version=3.5.1(978)
+#!tag=去广告,直播吧
+
+[Argument]
+sdk_fallback = switch,true,tag=拦截广告 SDK,desc=用于清除旧缓存配置触发的开屏广告；可能同时拦截其他 App 使用的同类广告 SDK。
+
+[Rewrite]
+# 直播吧的广告源；精确限制到 allOne.php 广告调度接口。
+http-request if ${url} ~= /^http:\/\/(?:47\.111\.8\.123|47\.99\.237\.245):8091\/(?:allOne\.php)?/ then reject(status=200, body="json-object")
+
+# 首次启用时，旧缓存可能先于新配置请求广告，因此提供可关闭的 SDK 兜底。
+http-request if ${sdk_fallback} == true && ${url} ~= /^https:\/\/api-access\.pangolin-sdk-toutiao\.com\/api\/ad\/union\/sdk\/get_ads\// then reject(status=200, body="json-object")
+http-request if ${sdk_fallback} == true && ${url} ~= /^https:\/\/mi\.gdt\.qq\.com\/server_bidding2(?:\?|$)/ then reject(status=200, body="json-object")
+http-request if ${sdk_fallback} == true && ${url} ~= /^https:\/\/opehs\.tanx\.com\/japi(?:\?|$)/ then reject(status=200, body="json-object")
+
+# 关闭广告总开关、开屏/插屏/弹窗/其他广告，以及预请求和预加载。
+http-response if ${url} ~= /^https:\/\/a\.qiumibao\.com\/ios\/config\/(?:\?|$)/ then response.json.jq(filter=".advert.enable = \"false\" | .advert_config.splash_bk = \"disable\" | .advert_config.inter_bk = \"disable\" | .advert_config.pop_bk = \"disable\" | .advert_config.other_bk = \"disable\" | .advert_config.is_pre_request = 0 | .advert_config.wifi_preloading.enable = \"disable\" | .advert_config.activities_config |= map(.enable = false | if .advert_report then .advert_report.enable = false else . end)")
+
+# 关闭开屏、首页关注/重要、赛程、新闻、视频、评论、贴片等全部广告位。
+http-response if ${url} ~= /^https:\/\/a\.qiumibao\.com\/activities\/config\.php(?:\?|$)/ then response.json.jq(filter=".advert_config.splash_bk = \"disable\" | .advert_config.inter_bk = \"disable\" | .advert_config.cache_pool_config = {} | .advert_list |= map(.enable = false | .api_pre_enable = false | .content = [])")
+
+# 移除“我的”页面中 is_game=true 的整个游戏中心区块，保留消息、历史等正常功能。
+http-response if ${url} ~= /^https:\/\/a\.qiumibao\.com\/found\/(?:\?|$)/ then response.json.jq(filter="map(select(.is_game != true))")
+
+[MITM]
+hostname = a.qiumibao.com,api-access.pangolin-sdk-toutiao.com,mi.gdt.qq.com,opehs.tanx.com
