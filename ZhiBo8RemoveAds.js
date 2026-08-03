@@ -11,6 +11,7 @@ try {
 
   if (url.indexOf("/ios/config/") !== -1) {
     disableMainConfig(data);
+    removeExpertTab(data);
   } else if (url.indexOf("/activities/config.php") !== -1) {
     disableActivityConfig(data);
   } else if (url.indexOf("/found/") !== -1 && Array.isArray(data)) {
@@ -69,4 +70,32 @@ function disableActivityConfig(data) {
       item.content = [];
     });
   }
+}
+
+function removeExpertTab(data) {
+  var sections = data.all_sections && data.all_sections.match_sections;
+  var labels = sections && sections.labels;
+
+  if (labels) {
+    labels.show = withoutExpert(labels.show);
+    labels.blacks_disable = withoutExpert(labels.blacks_disable);
+  }
+
+  var channels = data.theme && data.theme.config && data.theme.config.channels;
+  var matchTheme = channels && channels.match;
+  if (matchTheme && Array.isArray(matchTheme.special)) {
+    matchTheme.special = matchTheme.special.filter(function (item) {
+      return !item || item.label !== "专家";
+    });
+  }
+}
+
+function withoutExpert(items) {
+  if (!Array.isArray(items)) {
+    return items;
+  }
+
+  return items.filter(function (item) {
+    return item !== "专家";
+  });
 }

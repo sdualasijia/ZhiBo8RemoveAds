@@ -1,5 +1,5 @@
 #!name=直播吧去广告
-#!desc=关闭开屏、信息流、赛程等广告位，并移除“我的”页面的游戏中心。最低支持 Loon 3.4.0。
+#!desc=关闭开屏、信息流、赛程等广告位，移除游戏中心和首页“专家”Tab。最低支持 Loon 3.4.0。
 #!author=sdualasijia
 #!system=iOS
 #!loon_version=3.4.0(0)

@@ -9,6 +9,7 @@
 - 首页赛程卡片间广告
 - 插屏、新闻/视频列表、内页、评论、视频贴片等统一配置下发的广告位
 - “我的”页面中的“游戏中心”区块
+- 首页顶部的“专家”Tab
 
 插件不会修改直播、赛程、比分、新闻、账号登录或会员状态。
 
@@ -39,6 +40,7 @@ https://raw.githubusercontent.com/sdualasijia/ZhiBo8RemoveAds/main/ZhiBo8RemoveA
 插件通过 `ZhiBo8RemoveAds.js` 重写以下直播吧接口：
 
 - `a.qiumibao.com/ios/config/`：关闭广告总开关、开屏、插屏、弹窗及预加载；
+- `a.qiumibao.com/ios/config/`：从首页频道列表中移除“专家”Tab；
 - `a.qiumibao.com/activities/config.php`：关闭服务端下发的全部广告位；
 - `a.qiumibao.com/found/`：移除 `is_game=true` 的游戏中心区块。
 
@@ -52,6 +54,7 @@ https://raw.githubusercontent.com/sdualasijia/ZhiBo8RemoveAds/main/ZhiBo8RemoveA
 - `splash_bk`、`inter_bk` 改为 `disable`；
 - 29 个 `advert_list` 广告位全部改为 `enable=false`；
 - 游戏中心区块被移除，其他“我的”页面功能区块保留。
+- 首页频道列表及主题样式中不再包含“专家”，但“专家预测”和比赛专家标签保持不变。
 
 尚未覆盖的新版接口或广告样式，请提交 Issue，并附上脱敏后的请求 URL、响应结构和应用版本。不要上传 Cookie、Token、设备标识或完整未脱敏 HAR。
 
