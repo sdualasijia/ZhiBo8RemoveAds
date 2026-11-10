@@ -14,6 +14,7 @@ try {
     removeExpertTab(data);
     removeAiTab(data);
     removeGameTab(data);
+    removeGameFavorite(data);
   } else if (url.indexOf("/activities/config.php") !== -1) {
     disableActivityConfig(data);
   } else if (url.indexOf("/found/") !== -1 && Array.isArray(data)) {
@@ -134,6 +135,22 @@ function removeGameTab(data) {
 
   labels.show = withoutLabels(labels.show, ["游戏"]);
   labels.blacks_disable = withoutLabels(labels.blacks_disable, ["游戏"]);
+}
+
+function removeGameFavorite(data) {
+  var pop = data.blacks && data.blacks.favor_pop;
+
+  if (!pop) {
+    return;
+  }
+
+  if (Array.isArray(pop.labels)) {
+    pop.labels = withoutLabels(pop.labels, ["游戏"]);
+  } else if (typeof pop.labels === "string") {
+    pop.labels = pop.labels.split(",").filter(function (item) {
+      return item.trim() !== "游戏";
+    }).join(",");
+  }
 }
 
 function withoutExpert(items) {

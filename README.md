@@ -12,6 +12,7 @@
 - 首页顶部的“专家”Tab
 - 首页顶部的“AI乐园”Tab（服务端标签为“AI工坊”）
 - 首页顶部的“游戏”Tab
+- 收藏/关注弹窗中的“游戏”分类
 
 插件不会修改直播、赛程、比分、新闻、账号登录或会员状态。
 
@@ -42,7 +43,7 @@ https://raw.githubusercontent.com/sdualasijia/ZhiBo8RemoveAds/main/ZhiBo8RemoveA
 插件通过 `ZhiBo8RemoveAds.js` 重写以下直播吧接口：
 
 - `a.qiumibao.com/ios/config/`：关闭广告总开关、开屏、插屏、弹窗及预加载；
-- `a.qiumibao.com/ios/config/`：从首页频道列表中移除“专家”、“AI工坊/AI乐园”和“游戏”Tab；
+- `a.qiumibao.com/ios/config/`：从首页频道列表中移除“专家”、“AI工坊/AI乐园”和“游戏”Tab，并移除收藏弹窗里的“游戏”分类；
 - `a.qiumibao.com/activities/config.php`：关闭服务端下发的全部广告位；
 - `a.qiumibao.com/found/`：移除 `is_game=true` 的游戏中心区块。
 
@@ -58,7 +59,8 @@ https://raw.githubusercontent.com/sdualasijia/ZhiBo8RemoveAds/main/ZhiBo8RemoveA
 - 游戏中心区块被移除，其他“我的”页面功能区块保留。
 - 首页频道列表及主题样式中不再包含“专家”，但“专家预测”和比赛专家标签保持不变；
 - “AI工坊/AI乐园”相关项已从 `show`、`init`、`blacks_disable`、`red_dot`、`modify` 中移除，其他频道保留；
-- “游戏”已从 `show` 和 `blacks_disable` 中移除，电竞等其他频道保留。
+- “游戏”已从 `show` 和 `blacks_disable` 中移除，电竞等其他频道保留；
+- 收藏弹窗 `blacks.favor_pop.labels` 中的“游戏”已移除，电竞、王者荣耀、英雄联盟、绝地求生、DOTA2 保留。
 
 尚未覆盖的新版接口或广告样式，请提交 Issue，并附上脱敏后的请求 URL、响应结构和应用版本。不要上传 Cookie、Token、设备标识或完整未脱敏 HAR。
 
