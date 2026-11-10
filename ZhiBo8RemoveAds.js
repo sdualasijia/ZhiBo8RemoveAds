@@ -12,6 +12,7 @@ try {
   if (url.indexOf("/ios/config/") !== -1) {
     disableMainConfig(data);
     removeExpertTab(data);
+    removeAiTab(data);
   } else if (url.indexOf("/activities/config.php") !== -1) {
     disableActivityConfig(data);
   } else if (url.indexOf("/found/") !== -1 && Array.isArray(data)) {
@@ -90,12 +91,48 @@ function removeExpertTab(data) {
   }
 }
 
+function removeAiTab(data) {
+  var sections = data.all_sections && data.all_sections.match_sections;
+  var labels = sections && sections.labels;
+
+  if (!labels) {
+    return;
+  }
+
+  labels.show = withoutLabels(labels.show, ["AI工坊", "AI乐园"]);
+  labels.blacks_disable = withoutLabels(labels.blacks_disable, ["AI工坊", "AI乐园"]);
+
+  if (Array.isArray(labels.init)) {
+    labels.init = labels.init.filter(function (item) {
+      return !item || (item.label !== "AI工坊" && item.label !== "AI乐园");
+    });
+  }
+
+  if (labels.red_dot && Array.isArray(labels.red_dot.label)) {
+    labels.red_dot.label = withoutLabels(labels.red_dot.label, ["AI工坊", "AI乐园"]);
+  }
+
+  if (Array.isArray(labels.modify)) {
+    labels.modify = labels.modify.filter(function (item) {
+      return !item || (
+        item.from !== "AI工坊" &&
+        item.from !== "AI乐园" &&
+        item.to !== "AI乐园"
+      );
+    });
+  }
+}
+
 function withoutExpert(items) {
+  return withoutLabels(items, ["专家"]);
+}
+
+function withoutLabels(items, blocked) {
   if (!Array.isArray(items)) {
     return items;
   }
 
   return items.filter(function (item) {
-    return item !== "专家";
+    return blocked.indexOf(item) === -1;
   });
 }

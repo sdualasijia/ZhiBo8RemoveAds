@@ -1,6 +1,6 @@
 # ZhiBo8RemoveAds
 
-直播吧 iOS 去广告 Loon 插件。当前规则根据直播吧 6.9.1（2026-08-03）网络请求制作，最低支持 Loon 3.4.0。
+直播吧 iOS 去广告 Loon 插件。当前规则根据直播吧 7.0.0（2026-11-10）网络请求制作，最低支持 Loon 3.4.0。
 
 ## 去除内容
 
@@ -10,6 +10,7 @@
 - 插屏、新闻/视频列表、内页、评论、视频贴片等统一配置下发的广告位
 - “我的”页面中的“游戏中心”区块
 - 首页顶部的“专家”Tab
+- 首页顶部的“AI乐园”Tab（服务端标签为“AI工坊”）
 
 插件不会修改直播、赛程、比分、新闻、账号登录或会员状态。
 
@@ -40,7 +41,7 @@ https://raw.githubusercontent.com/sdualasijia/ZhiBo8RemoveAds/main/ZhiBo8RemoveA
 插件通过 `ZhiBo8RemoveAds.js` 重写以下直播吧接口：
 
 - `a.qiumibao.com/ios/config/`：关闭广告总开关、开屏、插屏、弹窗及预加载；
-- `a.qiumibao.com/ios/config/`：从首页频道列表中移除“专家”Tab；
+- `a.qiumibao.com/ios/config/`：从首页频道列表中移除“专家”和“AI工坊/AI乐园”Tab；
 - `a.qiumibao.com/activities/config.php`：关闭服务端下发的全部广告位；
 - `a.qiumibao.com/found/`：移除 `is_game=true` 的游戏中心区块。
 
@@ -54,7 +55,8 @@ https://raw.githubusercontent.com/sdualasijia/ZhiBo8RemoveAds/main/ZhiBo8RemoveA
 - `splash_bk`、`inter_bk` 改为 `disable`；
 - 29 个 `advert_list` 广告位全部改为 `enable=false`；
 - 游戏中心区块被移除，其他“我的”页面功能区块保留。
-- 首页频道列表及主题样式中不再包含“专家”，但“专家预测”和比赛专家标签保持不变。
+- 首页频道列表及主题样式中不再包含“专家”，但“专家预测”和比赛专家标签保持不变；
+- “AI工坊/AI乐园”相关项已从 `show`、`init`、`blacks_disable`、`red_dot`、`modify` 中移除，其他频道保留。
 
 尚未覆盖的新版接口或广告样式，请提交 Issue，并附上脱敏后的请求 URL、响应结构和应用版本。不要上传 Cookie、Token、设备标识或完整未脱敏 HAR。
 
