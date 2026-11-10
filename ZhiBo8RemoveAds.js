@@ -13,6 +13,7 @@ try {
     disableMainConfig(data);
     removeExpertTab(data);
     removeAiTab(data);
+    removeGameTab(data);
   } else if (url.indexOf("/activities/config.php") !== -1) {
     disableActivityConfig(data);
   } else if (url.indexOf("/found/") !== -1 && Array.isArray(data)) {
@@ -121,6 +122,18 @@ function removeAiTab(data) {
       );
     });
   }
+}
+
+function removeGameTab(data) {
+  var sections = data.all_sections && data.all_sections.match_sections;
+  var labels = sections && sections.labels;
+
+  if (!labels) {
+    return;
+  }
+
+  labels.show = withoutLabels(labels.show, ["游戏"]);
+  labels.blacks_disable = withoutLabels(labels.blacks_disable, ["游戏"]);
 }
 
 function withoutExpert(items) {
