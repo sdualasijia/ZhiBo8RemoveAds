@@ -11,6 +11,7 @@ try {
 
   if (url.indexOf("/ios/config/") !== -1) {
     disableMainConfig(data);
+    disableProStats(data);
     removeExpertTab(data);
     removeAiTab(data);
     removeGameTab(data);
@@ -71,6 +72,18 @@ function disableActivityConfig(data) {
       item.enable = false;
       item.api_pre_enable = false;
       item.content = [];
+    });
+  }
+}
+
+function disableProStats(data) {
+  if (data.ziliao && data.ziliao.stats) {
+    data.ziliao.stats.show_pro = false;
+  }
+
+  if (data.rating && Array.isArray(data.rating.navigation)) {
+    data.rating.navigation = data.rating.navigation.filter(function (item) {
+      return !item || item.name !== "专业";
     });
   }
 }
