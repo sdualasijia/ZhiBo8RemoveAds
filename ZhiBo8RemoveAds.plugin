@@ -1,5 +1,5 @@
 #!name=直播吧去广告
-#!desc=关闭开屏、信息流、赛程等广告位，移除游戏中心和首页“专家”Tab。最低支持 Loon 3.4.0。
+#!desc=关闭开屏、信息流、赛程等广告位，移除游戏中心、首页“专家”和“AI乐园”Tab。最低支持 Loon 3.4.0。
 #!author=sdualasijia
 #!system=iOS
 #!loon_version=3.4.0(0)
@@ -15,7 +15,7 @@
 ^https:\/\/opehs\.tanx\.com\/japi reject-dict
 
 [Script]
-http-response ^https:\/\/a\.qiumibao\.com\/(ios\/config\/|activities\/config\.php|found\/) script-path=https://raw.githubusercontent.com/sdualasijia/ZhiBo8RemoveAds/9b2bc58185aff5d728cd544dc39eb762137b364a/ZhiBo8RemoveAds.js,requires-body=true,timeout=10,tag=直播吧广告配置清理,enable=true
+http-response ^https:\/\/a\.qiumibao\.com\/(ios\/config\/|activities\/config\.php|found\/) script-path=https://raw.githubusercontent.com/sdualasijia/ZhiBo8RemoveAds/b53bf2b174c3ba9812eda33bd8a15f0180da1241/ZhiBo8RemoveAds.js,requires-body=true,timeout=10,tag=直播吧广告配置清理,enable=true
 
 [MITM]
 hostname = a.qiumibao.com,api-access.pangolin-sdk-toutiao.com,mi.gdt.qq.com,opehs.tanx.com
